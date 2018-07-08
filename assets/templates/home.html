@@ -1,0 +1,203 @@
+<div class="row page-titles">
+    <div class="col-md-6 col-8 align-self-center">
+        <h3 class="text-themecolor m-b-0 m-t-0">{{phrase.dashboard}}</h3>
+    </div>
+    <div class="col-md-6 col-4 align-self-center">
+
+    </div>
+</div>
+
+<div class="row" ng-show="dashboardData.role == 'admin'">
+    <!-- Column -->
+    <div class="col-lg-3 col-md-6">
+        <div class="card card-success">
+            <div class="card-block">
+                <h4 class="card-title text-white">{{phrase.classes}}</h4>
+                <div class="text-right">
+                    <h2 class="font-light m-b-0 text-white"><i class="mdi mdi-sort-variant"></i>  {{dashboardData.stats.classes}}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="card card-info">
+            <div class="card-block">
+
+                <div id="myCarousel" carousel-init class="carousel slide" data-ride="carousel">
+                    <!-- Carousel items -->
+                    <div class="carousel-inner">
+                        <div class="carousel-item active flex-column">
+                            <h4 class="text-white card-title">{{phrase.students}}</h4>
+                            <h3 class="text-white font-light text-right"><i class="ti-user"></i> {{dashboardData.stats.students}}</h3>
+                        </div>
+                        <div class="carousel-item flex-column">
+                            <h4 class="text-white card-title">{{phrase.teachers}}</h4>
+                            <h3 class="text-white font-light text-right"><i class="ti-user"></i> {{dashboardData.stats.teachers}}</h3>
+                        </div>
+                        <div class="carousel-item flex-column">
+                            <h4 class="text-white card-title">{{phrase.parents}}</h4>
+                            <h3 class="text-white font-light text-right"><i class="ti-user"></i> {{dashboardData.stats.parents}}</h3>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6" ng-show="dashboardData.activatedModules.indexOf('messagesAct') > -1">
+        <div class="card card-danger">
+            <div class="card-block">
+                <h4 class="card-title text-white">{{phrase.Messages}}</h4>
+                <div class="text-right">
+                    <h2 class="font-light m-b-0 text-white"><i class="mdi mdi-message"></i>  {{dashboardData.stats.newMessages}}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-lg-4 col-md-6">
+        <div class="card">
+            <div class="card-block">
+                <div class="d-flex flex-row">
+                    <div class=""><img ng-src="{{'index.php/dashboard/profileImage/'+dashboardData.baseUser.id}}" alt="user" class="img-circle" width="100"></div>
+                    <div class="p-l-20">
+                        <h3 class="font-medium">{{dashboardData.baseUser.fullName}}</h3>
+                        <h6>{{phrase.username}} : {{dashboardData.baseUser.username}}</h6>
+                        <h6 class="hidden-sm-down">{{phrase.mail}} : {{dashboardData.baseUser.email}}</h6>
+                        <h6>{{phrase.role}} : {{dashboardData.role | uppercase}}</h6>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <hr>
+            </div>
+            <div class="card-block">
+                <button onclick="location.href='#/account';" class="btn btn-block btn-primary waves-effect waves-light" type="button"><span class="pull-left"><i class="ti-settings"></i> {{phrase.AccountSettings}}</span></button>
+                <button ng-show="dashboardData.activatedModules.indexOf('messagesAct') > -1" onclick="location.href='#/messages';" class="btn btn-block btn-primary waves-effect waves-light" type="button"><span class="pull-left"><i class="ti-email"></i> {{phrase.Messages}}</span></button>
+                <button onclick="location.href='/logout';" class="btn btn-block btn-primary waves-effect waves-light" type="button"><span class="pull-left"><i class="fa fa-power-off"></i> {{phrase.logout}}</span></button>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-3">
+        <div class="card card-outline-primary">
+            <div class="card-block">
+                <h4 class="card-title">{{phrase.studentLeaderboard}}</h4>
+                <div class="message-box" scroll-box id="stdLdrBrd" height="255px">
+                    <div class="message-widget message-scroll">
+                        <!-- Message -->
+                        <a href="javascript:void(0)" ng-click="studentProfile( student.id )" ng-repeat="student in dashboardData.studentLeaderBoard">
+                            <div class="user-img"> <img ng-src="{{'index.php/dashboard/profileImage/'+student.id}}" alt="{{student.fullName}}" class="img-circle"> </div>
+                            <div class="mail-contnet">
+                                <h5>{{student.fullName}}</h5> <span class="mail-desc">{{student.isLeaderBoard}}</span>
+                            </div>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-3">
+        <div class="card">
+            <div class="card-block">
+                <h4 class="card-title">{{phrase.teacherLeaderboard}}</h4>
+                <div class="message-box" scroll-box id="tchLdrBrd" height="255px">
+                    <div class="message-widget message-scroll">
+                        <!-- Message -->
+                        <a href="javascript:void(0)" ng-click="studentProfile( student.id )" ng-repeat="student in dashboardData.teacherLeaderBoard">
+                            <div class="user-img"> <img ng-src="{{'index.php/dashboard/profileImage/'+student.id}}" alt="{{student.fullName}}" class="img-circle"> </div>
+                            <div class="mail-contnet">
+                                <h5>{{student.fullName}}</h5> <span class="mail-desc">{{student.isLeaderBoard}}</span>
+                            </div>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row" ng-show="dashboardData.invoices">
+
+    <div class="col-12">
+        <div class="card">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="p-20">
+                        <h2 class="font-medium text-inverse">{{phrase.Invoices}}</h2>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="text-center hidden-sm-down">#</th>
+                                    <th>{{phrase.title}}</th>
+                                    <th>{{phrase.Status}}</th>
+                                    <th class="hidden-sm-down">{{phrase.Date}}</th>
+                                    <th class="hidden-sm-down">{{phrase.dueDate}}</th>
+                                    <th class="hidden-sm-down">{{phrase.Amount}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="invoice in dashboardData.invoices">
+                                    <td class="text-center hidden-sm-down">{{invoice.paymentTitle}}</td>
+                                    <td class="txt-oflo">{{invoice.paymentDescription}}</td>
+                                    <td>
+                                        <span ng-show="invoice.paymentStatus == '0'" class="label label-danger label-rouded">{{phrase.unpaid}}</span>
+                                        <span ng-show="invoice.paymentStatus == '1'" class="label label-success label-rouded">{{phrase.paid}}</span>
+                                        <span ng-show="invoice.paymentStatus == '2'" class="label label-warning label-rouded">{{phrase.ppaid}}</span>
+                                    </td>
+                                    <td class="txt-oflo hidden-sm-down">{{invoice.paymentDate}}</td>
+                                    <td class="txt-oflo hidden-sm-down">{{invoice.dueDate}}</td>
+                                    <td class="hidden-sm-down"><span class="text-success">{{dashboardData.currency_symbol}} {{invoice.paymentAmount}}</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-lg-4 b-l">
+                    <div class="card-block">
+
+                        <div id="m-piechart" invoce-dougnuts style="width:100%; height:278px"></div>
+                        <center>
+                            <ul class="list-inline m-t-20">
+                                <li>
+                                    <h6 class="text-muted"><i class="fa fa-circle m-r-5 text-primary"></i>{{phrase.Invoices}}</h6>
+                                </li>
+                                <li>
+                                    <h6 class="text-muted"><i class="fa fa-circle m-r-5 text-danger"></i>{{phrase.dueInvoices}}</h6>
+                                </li>
+                            </ul>
+                        </center>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<div class="row">
+    <div class="col-md-6">
+
+        <div class="card">
+            <div class="card-block">
+                <h4 class="card-title">{{phrase.Calendar}}</h4>
+
+                <div class="row">
+
+                    <div id="calendar" class="fullPageCalendar miniCal" calendar-box></div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
