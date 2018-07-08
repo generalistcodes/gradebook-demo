@@ -1,1 +1,1 @@
-# gradebook-demo
+# Institute of Applied Technology (Gradebook Demo)
